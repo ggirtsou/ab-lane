@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option go_package = "contracts";
+
+import "google/protobuf/any.proto";
+
+message RequestEnvelope {
+    string correlation_id = 1;
+    enum MessageType {
+        // request to save a message
+        SAVE_MESSAGE = 0;
+        // request to receive messages
+        SERVE_MESSAGE = 1;
+    }
+    MessageType type = 2;
+    google.protobuf.Any payload = 3;
+}
+
+message PersistMessage {
+    string correlation_id = 1;
+    string topic = 2;
+    bytes payload = 3;
+}
